@@ -1,14 +1,10 @@
 from discord_webhook import DiscordWebhook
-#Load config
-
-def create_config():
-
-def save_config():
-
-def load_config():
+from configparser import ConfigParser
+import os
+from functions import create_config, load_config, add_new, save_config
 
 
-try:
-    load_config()
-except:
-   create_config()
+if not os.path.isfile("config.cfg"):
+     create_config()
+config = load_config()
+print(config["Architects"]["has_finished"])
