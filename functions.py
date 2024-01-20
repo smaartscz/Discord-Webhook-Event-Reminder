@@ -9,7 +9,7 @@ add_another = True
 
 
 
-'''
+
 while add_another:
     new_artist = {}
 
@@ -32,4 +32,3 @@ while add_another:
         add_another = True
     else:
         add_another = False
-'''

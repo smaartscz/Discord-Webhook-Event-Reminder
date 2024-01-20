@@ -1,7 +1,7 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
-from config import load_config, save_config
-from events import load_events
-from f_time import remaining_time
+from custom_functions.config import load_config, save_config
+from custom_functions.events import load_events
+from custom_functions.f_time import remaining_time
 
 def send_webhook(id, name, unix_time, time, embed_color, next):
     config = load_config()
@@ -36,18 +36,17 @@ def prepare_webhook():
         next = "Žádná další akce není :("
 
     #Get remaining time
-    days, hours = remaining_time()
-
-    #Split time for 
-
-
-    days = 0
+    days, hours = remaining_time(events[0]["time"])
 
     #Get color based if its today or no
     if days == 0:
         embed_color = "1BFF00"
+        time_text = f"{hours} hodin"
+
+        #Save it as finished event
         save_config(section=upcoming_id, key="has_finished", value="True")
     else:
         embed_color = "001BFF"
+        time_text = f"{days} dní a {hours} hodin"
     send_webhook(id=upcoming_id,name=upcoming_name, unix_time=upcoming_time, time=time_text, embed_color=embed_color, next=next)
 prepare_webhook()

@@ -1,4 +1,4 @@
-from config import load_config
+from custom_functions.config import load_config
 
 #Load upcoming events
 def load_events():

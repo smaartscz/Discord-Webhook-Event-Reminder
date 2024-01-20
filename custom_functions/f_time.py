@@ -14,8 +14,4 @@ def remaining_time(unix_time):
     remaining_seconds = remaining_time % (24 * 60 * 60)
     hours = remaining_seconds // (60 * 60)
 
-    #DELETE ME
-    if days == 0:
-        result = f"{hours} hodin"
-    result = f"{days} dní, {hours} hodin"
     return days, hours

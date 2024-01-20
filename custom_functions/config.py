@@ -1,5 +1,5 @@
 from configparser import ConfigParser
-from f_time import get_time
+from custom_functions.f_time import get_time
 
 config = ConfigParser()
 
