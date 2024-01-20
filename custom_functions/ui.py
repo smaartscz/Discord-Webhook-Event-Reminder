@@ -1,7 +1,5 @@
-from custom_functions.config import save_config
-
-
 def add_new_event():
+    from custom_functions.config import save_config
     add_another = True
     while add_another:
         new_artist = {}
@@ -25,3 +23,38 @@ def add_new_event():
             add_another = True
         else:
             add_another = False
+
+def modify():
+    from custom_functions.config import modify_config, load_config, get_section, get_key, get_value
+    import os
+    os.system("cls")
+    #Load configuration
+    config = load_config()
+
+    action = input('''
+Co chceš udělat?
+1) Přidat novou akci - add new
+2) Smazat akci - remove
+3) Změnit hodnotu - modify
+[4] Nic
+''')
+    if action == "1" or action == "add new":
+        add_new_event()
+
+    elif action == "2" or action == "remove" or action == "delete":
+        print("Dostupné sekce: "+ get_section())
+
+        section = input("Zadej celý název sekce: ")
+        
+        modify_config("2",section)
+
+    elif action == "3" or action == "modify" or action == "change":
+        print("Dostupné sekce: " + get_section())
+        section = input("Zadej celý název sekce: ")
+
+        key = input("Zadej celý název položky, kterou chceš změnit: " + get_key(section))
+
+        print(f"Momentálně má {key} hodnotu " + get_value(section, key))
+        value = input("Změnit na: ")
+
+        modify_config("3", section, key, value)

@@ -6,7 +6,7 @@ from custom_functions.f_time import remaining_time
 def send_webhook(id, name, unix_time, time, embed_color, next):
     config = load_config()
     #Create new instance
-    webhook = DiscordWebhook(url=f'{config["main"]["webhook"]}', content=f'<@&{config[id]["role_id"]}>', avatar_url=config[id]["img_url"], username=config[id]["name"])
+    webhook = DiscordWebhook(url=f'{config["General"]["webhook"]}', content=f'<@&{config[id]["role_id"]}>', avatar_url=config[id]["img_url"], username=config[id]["name"])
 
     #Configure message
     embed = DiscordEmbed(title=f'Blíží se událost!', description=f'Akce začíná za: {time}(<t:{unix_time}:R>)', color=embed_color)
@@ -17,7 +17,7 @@ def send_webhook(id, name, unix_time, time, embed_color, next):
 
     #Send webhook
     response = webhook.execute()
-    print(response)
+    print(f"Webhook sent! Response: {response}")
 
 
 
@@ -48,4 +48,5 @@ def prepare_webhook():
     else:
         embed_color = "001BFF"
         time_text = f"{days} dní a {hours} hodin"
+    print("Sending webhook!")
     send_webhook(id=upcoming_id,name=upcoming_name, unix_time=upcoming_time, time=time_text, embed_color=embed_color, next=next)
