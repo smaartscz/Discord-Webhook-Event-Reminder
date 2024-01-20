@@ -8,9 +8,12 @@ add_another = True
 
 def create_config():
     config.read("config.cfg")
+    webhook_url = input("Webhook URL: ")
+    
     config.add_section("main")
     config.set("main", "created", str(datetime.datetime.now()))
     config.set("main", "modified", str(datetime.datetime.now()))
+    config.set("main", "webhook", webhook_url)
     with open("config.cfg", "w") as f:
         config.write(f)
 
