@@ -49,4 +49,3 @@ def prepare_webhook():
         embed_color = "001BFF"
         time_text = f"{days} dní a {hours} hodin"
     send_webhook(id=upcoming_id,name=upcoming_name, unix_time=upcoming_time, time=time_text, embed_color=embed_color, next=next)
-prepare_webhook()
