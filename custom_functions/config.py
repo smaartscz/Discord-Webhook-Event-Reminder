@@ -7,18 +7,31 @@ config = ConfigParser()
 #Create config
 def create_config():
     config.read("config.cfg")
+
     webhook_url = input("Webhook URL: ")
     scheduled_time = input("Time when webhook should be sent(HH:MM): ")
-    
+    webserver = input("Do you want to allow HTTP Web server(True/False): ") or "False"
+
+    if webserver == "True":
+        webserver_port = input("What port should Web server run(Default: 80): ") or "80"
+
     #Add basic information
     config.add_section("General")
     config.set("General", "created", get_time())
     config.set("General", "modified", get_time())
     config.set("General", "webhook", webhook_url)
     config.set("General", "scheduled_time", scheduled_time)
+    config.set("General", "allow_webserver", webserver)
+    config.set("General", "webserver_port", webserver_port)
 
+    #Save config
     with open("config.cfg", "w") as f:
         config.write(f)
+
+    #Generate empty index.html file for webserver
+    with open("custom_functions/web/index.html", "w") as html:
+        html.write("")
+        html.close()
 
     print("Config successfully generated!")
     add_new_event()
