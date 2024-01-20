@@ -23,6 +23,7 @@ if not os.path.isfile("config.cfg"):
 print("Loading configuration!")
 config = load_config()
 scheduled_time = config["General"]["scheduled_time"]
+
 print("Setting up schedule!")
 schedule.every().day.at(scheduled_time).do(prepare_webhook)
 

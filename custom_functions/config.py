@@ -8,7 +8,7 @@ config = ConfigParser()
 def create_config():
     config.read("config.cfg")
     webhook_url = input("Webhook URL: ")
-    scheduled_time = input("V kolik hodin mám pingovat?(HH:MM): ")
+    scheduled_time = input("Time when webhook should be sent(HH:MM): ")
     
     #Add basic information
     config.add_section("General")
@@ -28,24 +28,8 @@ def load_config():
     content = {}
     for section in config.sections():
         content[section] = dict(config.items(section))
+    print("Config loaded successfully!")
     return content
-
-def add_new(section, key, value):
-    config.read("config.cfg")
-
-    #Create new section
-    try:
-        config.add_section(section)
-        config.set(section, "created", get_time())
-        config.set(section, "modified", get_time())
-        config.set(section, "has_finished", "False")
-        config.set(section, "name", section)
-        config.set(section, key, value)
-        with open("config.cfg", "w") as f:
-            config.write(f)
-    # If section exists then save it
-    except:
-        save_config(section, key, value)
 
 def save_config(section, key, value):
     print("Saving config!")
@@ -69,6 +53,7 @@ def save_config(section, key, value):
 def modify_config(action, section, key="", value=""):
     config.read("config.cfg")
     action = action.lower()
+    
     #Delete section
     if action == "2":
         print(f"Removing section: {section}")
