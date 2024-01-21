@@ -8,18 +8,9 @@ html_beginning = '''
 </head>
 
 '''
-html_table_start = '''
-<form action="" method="get">
-<table border="1">
-<tr>
-<th>Section</th>
-<th>Key</th>
-<th>Value</th>
-</tr>
-'''
 html_table_end = '''
 </table>
-<input type="submit" value="Change values" />
+<input type="submit" value="Save">
 </form>
 '''
 

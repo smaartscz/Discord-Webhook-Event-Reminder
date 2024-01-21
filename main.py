@@ -2,10 +2,15 @@ from custom_functions.config import create_config, load_config
 from custom_functions.webhook import prepare_webhook
 from custom_functions.ui import modify
 from custom_functions.web.server import start_server
+from custom_functions.f_time import get_time
+from custom_functions.basic import clear
+
 import os, schedule, time, sys
 
+if os.name != "nt":
+     os.environ.get("TERM")
 
-print("PoC")
+print("PoC" + get_time())
 
 if len(sys.argv) > 1:
      print("Argument detected!")
@@ -14,7 +19,8 @@ if len(sys.argv) > 1:
           modify()
      else:
           print(f"Unknown argument! Got {arg}. Continuing as usual.")
-os.system("cls")
+
+clear()
 # Check if config already exists or it's first time running this app
 if not os.path.isfile("config.cfg"):
      print("Running for first time! Creating new config")
