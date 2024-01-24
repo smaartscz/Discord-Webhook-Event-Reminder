@@ -28,15 +28,17 @@ def create_config():
     config.set("General", "scheduled_time", scheduled_time)
 
     config.set("General", "allow_webserver", webserver)
-    config.set("General", "webserver_port", webserver_port)
-    config.set("General", "web_path", webserver_path)
+    print(webserver)
+    if webserver != "False":
+        config.set("General", "webserver_port", webserver_port)
+        config.set("General", "web_path", webserver_path)
 
     #Save config
     with open("config.cfg", "w") as f:
         config.write(f)
 
     #Generate empty index.html file for webserver
-    if web_path != None:
+    if webserver != "False":
         web_path = webserver_path + "/index.html"
         with open(web_path, "w") as html:
             html.write("")
