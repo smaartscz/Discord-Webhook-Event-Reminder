@@ -7,18 +7,40 @@ config = ConfigParser()
 #Create config
 def create_config():
     config.read("config.cfg")
+
     webhook_url = input("Webhook URL: ")
     scheduled_time = input("Time when webhook should be sent(HH:MM): ")
-    
+    webserver = input("Do you want to allow HTTP Web server(True/[False]): ") or "False"
+
+    if webserver == "True":
+        webserver_port = input("What port should Web server run(Default: 80): ") or "80"
+        webserver_path = input("Which folder should Web server use?(Default: custom_functions/web/web): ") or "custom_functions/web/web"
+
     #Add basic information
     config.add_section("General")
     config.set("General", "created", get_time())
     config.set("General", "modified", get_time())
+    
+    config.set("General", "name", "General")
+
     config.set("General", "webhook", webhook_url)
+
     config.set("General", "scheduled_time", scheduled_time)
 
+    config.set("General", "allow_webserver", webserver)
+    config.set("General", "webserver_port", webserver_port)
+    config.set("General", "web_path", webserver_path)
+
+    #Save config
     with open("config.cfg", "w") as f:
         config.write(f)
+
+    #Generate empty index.html file for webserver
+    if web_path != None:
+        web_path = webserver_path + "/index.html"
+        with open(web_path, "w") as html:
+            html.write("")
+            html.close()
 
     print("Config successfully generated!")
     add_new_event()
@@ -34,18 +56,19 @@ def load_config():
 def save_config(section, key, value):
     print("Saving config!")
     config.read("config.cfg")
+    section_name = section.replace(" ","_")
     try:
-        config.set(section, "modified", get_time())
-        config.set(section, key, value)
+        config.set(section_name, "modified", get_time())
+        config.set(section_name, key, value)
         with open("config.cfg", "w") as f:
           config.write(f)
     except:
-        config.add_section(section)
-        config.set(section, "created", get_time())
-        config.set(section, "modified", get_time())
-        config.set(section, "has_finished", "False")
-        config.set(section, "name", section)
-        config.set(section, key, value)
+        config.add_section(section_name)
+        config.set(section_name, "created", get_time())
+        config.set(section_name, "modified", get_time())
+        config.set(section_name, "has_finished", "False")
+        config.set(section_name, "name", section)
+        config.set(section_name, key, value)
         with open("config.cfg", "w") as f:
             config.write(f)   
     print("Config saved!") 
@@ -79,6 +102,7 @@ def get_key(section):
     for key in config[section]:
         keys += key + "\n"
     return keys
+
 def get_value(section, key):
     value = config[section][key]
     return value

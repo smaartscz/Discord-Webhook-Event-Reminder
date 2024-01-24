@@ -27,8 +27,10 @@ def add_new_event():
 
 def modify():
     from custom_functions.config import modify_config, load_config, get_section, get_key, get_value
+    from custom_functions.basic import clear
     import os
-    os.system("cls")
+    
+    clear()
     #Load configuration
     config = load_config()
 
