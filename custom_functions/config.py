@@ -10,7 +10,7 @@ def create_config():
 
     webhook_url = input("Webhook URL: ")
     scheduled_time = input("Time when webhook should be sent(HH:MM): ")
-    webserver = input("Do you want to allow HTTP Web server(True/False): ") or "False"
+    webserver = input("Do you want to allow HTTP Web server(True/[False]): ") or "False"
 
     if webserver == "True":
         webserver_port = input("What port should Web server run(Default: 80): ") or "80"
@@ -19,8 +19,11 @@ def create_config():
     config.add_section("General")
     config.set("General", "created", get_time())
     config.set("General", "modified", get_time())
+
     config.set("General", "webhook", webhook_url)
+
     config.set("General", "scheduled_time", scheduled_time)
+
     config.set("General", "allow_webserver", webserver)
     config.set("General", "webserver_port", webserver_port)
 
@@ -29,7 +32,7 @@ def create_config():
         config.write(f)
 
     #Generate empty index.html file for webserver
-    with open("custom_functions/web/index.html", "w") as html:
+    with open("index.html", "w") as html:
         html.write("")
         html.close()
 
@@ -92,6 +95,7 @@ def get_key(section):
     for key in config[section]:
         keys += key + "\n"
     return keys
+
 def get_value(section, key):
     value = config[section][key]
     return value
