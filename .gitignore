@@ -153,3 +153,4 @@ cython_debug/
 config.cfg
 config.cfg.bak
 index.html
+*.html
